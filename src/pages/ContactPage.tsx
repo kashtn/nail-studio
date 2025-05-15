@@ -213,28 +213,28 @@ const ContactPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-serif font-medium text-gray-800 mb-3">Frequently Asked Questions</h2>
+              <h2 className="text-3xl font-serif font-medium text-gray-800 mb-3">Часто задаваемые вопросы</h2>
               <p className="text-gray-600">
-                Find answers to common questions about our salon and services.
+                Найдите ответы на часто задаваемые вопросы о нашем салоне и услугах.
               </p>
             </div>
             
             <div className="space-y-6">
               <FAQItem 
-                question="How do I book an appointment?" 
-                answer="You can book an appointment through our online booking system, by calling us at (212) 555-1234, or by visiting our salon in person. Online booking is available 24/7 for your convenience."
+                question="Как записаться на прием?" 
+                answer="Вы можете записаться на прием через нашу онлайн-систему бронирования, позвонив нам по телефону +7 (495) 123-45-67 или посетив наш салон лично. Онлайн-запись доступна 24/7 для вашего удобства."
               />
               <FAQItem 
-                question="What if I need to cancel my appointment?" 
-                answer="We understand that plans change. Please provide at least 24 hours' notice for cancellations to avoid a cancellation fee. You can cancel through our online system or by calling us directly."
+                question="Что делать, если нужно отменить запись?" 
+                answer="Мы понимаем, что планы могут измениться. Пожалуйста, сообщите об отмене как минимум за 24 часа, чтобы избежать штрафа за отмену. Вы можете отменить запись через нашу онлайн-систему или позвонив нам напрямую."
               />
               <FAQItem 
-                question="Do you offer gift cards?" 
-                answer="Yes! Gift cards are available for purchase in-store or online. They make perfect gifts for birthdays, holidays, or any special occasion. Gift cards can be used for any service or product."
+                question="Предлагаете ли вы подарочные карты?" 
+                answer="Да! Подарочные карты можно приобрести в салоне или онлайн. Они станут отличным подарком на день рождения, праздники или любой особый случай. Подарочные карты можно использовать для любых услуг или товаров."
               />
               <FAQItem 
-                question="What COVID-19 safety measures do you have in place?" 
-                answer="We prioritize the health and safety of our clients and staff. Our salon follows all local health guidelines, including enhanced cleaning procedures, staff health screenings, and appropriate social distancing measures where required."
+                question="Какие меры безопасности COVID-19 у вас действуют?" 
+                answer="Мы уделяем приоритетное внимание здоровью и безопасности наших клиентов и персонала. Наш салон следует всем местным санитарным нормам, включая усиленные процедуры очистки, проверки здоровья персонала и соответствующие меры социального дистанцирования, где это требуется."
               />
             </div>
           </div>
@@ -273,21 +273,21 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300">
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
       <button 
-        className="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none"
+        className="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none hover:bg-gray-50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         <h3 className="text-lg font-medium text-gray-800">{question}</h3>
-        <span className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </span>
       </button>
       <div 
-        className={`px-6 overflow-hidden transition-all duration-300 ${
-          isOpen ? 'max-h-40 pb-4' : 'max-h-0'
+        className={`px-6 overflow-hidden transition-all duration-500 ease-in-out ${
+          isOpen ? 'max-h-96 opacity-100 pb-4' : 'max-h-0 opacity-0'
         }`}
       >
         <p className="text-gray-600">{answer}</p>

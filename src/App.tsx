@@ -11,6 +11,8 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import AppointmentPage from './pages/AppointmentPage';
 import ProfilePage from './pages/ProfilePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsPage from './pages/TermsPage';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/appointments" element={<AppointmentPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
             </Routes>
           </main>
           <Footer />

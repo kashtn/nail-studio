@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link, Navigate } from 'react-router-dom';
-import { CheckCircle, Calendar, Clock, DollarSign } from 'lucide-react';
+import { CheckCircle, Calendar, Clock, RussianRuble } from 'lucide-react';
 import { format } from 'date-fns';
 
 const BookingConfirmationPage: React.FC = () => {
@@ -41,7 +41,7 @@ const BookingConfirmationPage: React.FC = () => {
               </div>
               
               <div className="flex items-start">
-                <DollarSign className="w-5 h-5 text-pink-500 mt-1 mr-3" />
+                <RussianRuble className="w-5 h-5 text-pink-500 mt-1 mr-3" />
                 <div>
                   <p className="font-medium text-gray-700">Service</p>
                   <p className="text-gray-600">{serviceName}</p>

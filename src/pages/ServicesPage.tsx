@@ -3,11 +3,12 @@ import { ChevronDown } from 'lucide-react';
 import ServiceCard from '../components/ServiceCard';
 import { Service } from '../types/service';
 import { supabase } from '../lib/supabase';
+import defaultServices from '../data/services';
 
 const ServicesPage: React.FC = () => {
   const [services, setServices] = useState<Service[]>([]);
-  const [categories, setCategories] = useState<string[]>(['All', 'Manicure', 'Pedicure', 'Extensions', 'Nail Art', 'Spa']);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [categories] = useState<string[]>(['Все', 'Маникюр', 'Педикюр', 'Наращивание', 'Дизайн', 'Спа']);
+  const [selectedCategory, setSelectedCategory] = useState('Все');
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -15,11 +16,9 @@ const ServicesPage: React.FC = () => {
       setLoading(true);
       try {
         // Fetch services from Supabase
-        let query = supabase
+        const { data, error } = await supabase
           .from('services')
           .select('*');
-        
-        const { data, error } = await query;
         
         if (error) throw error;
         
@@ -28,64 +27,8 @@ const ServicesPage: React.FC = () => {
         }
       } catch (error) {
         console.error('Error fetching services:', error);
-        
-        // Fallback data for demo purposes
-        setServices([
-          {
-            id: 1,
-            name: 'Classic Manicure',
-            description: 'A traditional manicure with nail shaping, cuticle care, hand massage, and polish of your choice.',
-            price: 25,
-            duration: 30,
-            image_url: 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 2,
-            name: 'Gel Manicure',
-            description: 'Long-lasting gel polish application that protects your natural nails while providing gorgeous, chip-free color for weeks.',
-            price: 40,
-            duration: 45,
-            image_url: 'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 3,
-            name: 'Luxury Pedicure',
-            description: 'Indulge in our luxury pedicure with exfoliation, callus removal, extended massage, and perfect polish.',
-            price: 55,
-            duration: 60,
-            image_url: 'https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 4,
-            name: 'Gel Extensions',
-            description: 'Stunning gel extensions that provide strength, length and the perfect canvas for nail art.',
-            price: 70,
-            duration: 90,
-            image_url: 'https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 5,
-            name: 'Custom Nail Art',
-            description: 'Express your personal style with custom hand-painted designs, glitter, gems, or 3D elements.',
-            price: 20,
-            duration: 30,
-            image_url: 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            created_at: new Date().toISOString()
-          },
-          {
-            id: 6,
-            name: 'Paraffin Treatment',
-            description: 'Soothe and moisturize dry hands with a warm paraffin wax treatment that leaves skin soft and rejuvenated.',
-            price: 25,
-            duration: 20,
-            image_url: 'https://images.pexels.com/photos/3997304/pexels-photo-3997304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            created_at: new Date().toISOString()
-          }
-        ]);
+        // Use default services if fetch fails
+        setServices(defaultServices);
       } finally {
         setLoading(false);
       }
@@ -95,14 +38,11 @@ const ServicesPage: React.FC = () => {
   }, []);
 
   // Filter services based on selected category
-  const filteredServices = selectedCategory === 'All' 
+  console.log(services);
+  
+  const filteredServices = selectedCategory === 'Все' 
     ? services 
-    : services.filter(service => {
-        // In a real app, we would have a category field
-        // This is just a mock filtering for demo purposes
-        const serviceName = service.name.toLowerCase();
-        return serviceName.includes(selectedCategory.toLowerCase());
-      });
+    : services.filter(service => service.category === selectedCategory);
 
   return (
     <div className="min-h-screen pt-20">
@@ -159,7 +99,7 @@ const ServicesPage: React.FC = () => {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-gray-600">No services found in this category.</p>
+                  <p className="text-gray-600">В этой категории нет услуг.</p>
                 </div>
               )}
             </>
@@ -171,32 +111,32 @@ const ServicesPage: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-medium text-gray-800 mb-3">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-serif font-medium text-gray-800 mb-3">Часто задаваемые вопросы</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Find answers to common questions about our services and booking process.
+              Найдите ответы на часто задаваемые вопросы о наших услугах и процессе записи.
             </p>
           </div>
           
           <div className="max-w-3xl mx-auto">
             <FAQItem 
-              question="How long do gel nails typically last?" 
-              answer="Our gel manicures typically last 2-3 weeks without chipping or peeling, depending on your natural nail growth and daily activities. Proper aftercare can help extend the life of your gel nails."
+              question="Сколько обычно держатся гель-лаки?" 
+              answer="Наши гель-лаки обычно держатся 2-3 недели без сколов и отслоений, в зависимости от роста ваших натуральных ногтей и повседневной активности. Правильный уход может продлить срок службы гель-лака."
             />
             <FAQItem 
-              question="What should I do if my nail breaks or chips?" 
-              answer="If you experience a break or chip, please contact us to schedule a quick repair appointment. Avoid trying to fix it yourself as this may cause more damage. Minor repairs can usually be accommodated within 15-30 minutes."
+              question="Что делать, если ноготь сломался или появился скол?" 
+              answer="Если у вас произошел скол или поломка, пожалуйста, свяжитесь с нами для записи на быстрый ремонт. Избегайте самостоятельного ремонта, так как это может привести к большему ущербу. Небольшие ремонты обычно занимают 15-30 минут."
             />
             <FAQItem 
-              question="How often should I get a manicure or pedicure?" 
-              answer="For regular nail polish, we recommend a manicure every 1-2 weeks and a pedicure every 3-4 weeks. For gel or dip powder nails, every 2-3 weeks is ideal to maintain their appearance as your natural nails grow."
+              question="Как часто нужно делать маникюр или педикюр?" 
+              answer="Для обычного лака мы рекомендуем делать маникюр каждые 1-2 недели и педикюр каждые 3-4 недели. Для гель-лака или дип-пудры идеально делать процедуру каждые 2-3 недели, чтобы поддерживать внешний вид по мере роста натуральных ногтей."
             />
             <FAQItem 
-              question="Can I reschedule or cancel my appointment?" 
-              answer="Yes, you can reschedule or cancel your appointment through our online booking system or by calling us. We appreciate at least 24 hours' notice for cancellations to allow us to offer the time slot to another client."
+              question="Можно ли перенести или отменить запись?" 
+              answer="Да, вы можете перенести или отменить запись через нашу онлайн-систему бронирования или позвонив нам. Мы будем благодарны за уведомление об отмене как минимум за 24 часа, чтобы мы могли предложить это время другому клиенту."
             />
             <FAQItem 
-              question="Do you offer nail services for special occasions?" 
-              answer="Absolutely! We offer special packages for weddings, proms, and other special events. You can book individual appointments or group bookings. We recommend booking well in advance for special occasions, especially during peak seasons."
+              question="Предлагаете ли вы услуги для особых случаев?" 
+              answer="Конечно! Мы предлагаем специальные пакеты услуг для свадеб, выпускных и других особых мероприятий. Вы можете записаться индивидуально или группой. Рекомендуем бронировать заранее для особых случаев, особенно в пиковые сезоны."
             />
           </div>
         </div>
@@ -214,23 +154,23 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
-    <div className="border-b border-gray-200 py-4">
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-4">
       <button 
-        className="flex items-center justify-between w-full text-left focus:outline-none"
+        className="flex justify-between items-center w-full px-6 py-4 text-left focus:outline-none hover:bg-gray-50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
       >
         <h3 className="text-lg font-medium text-gray-800">{question}</h3>
         <ChevronDown 
-          className={`w-5 h-5 text-gray-500 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} 
+          className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${isOpen ? 'transform rotate-180' : ''}`} 
         />
       </button>
       <div 
-        className={`mt-2 text-gray-600 overflow-hidden transition-all ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        className={`px-6 overflow-hidden transition-all duration-500 ease-in-out ${
+          isOpen ? 'max-h-96 opacity-100 pb-4' : 'max-h-0 opacity-0'
         }`}
       >
-        <p className="pb-2">{answer}</p>
+        <p className="text-gray-600">{answer}</p>
       </div>
     </div>
   );

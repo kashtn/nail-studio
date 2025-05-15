@@ -1,6 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Twitter, Mail, MapPin, Phone, Clock, Mail as Nail } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Instagram,
+  Facebook,
+  Twitter,
+  Mail,
+  MapPin,
+  Phone,
+  Clock,
+  Mail as Nail,
+} from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -14,13 +23,26 @@ const Footer: React.FC = () => {
               <span className="text-xl font-serif">NailArtistry</span>
             </div>
             <p className="text-gray-400 mb-6">
-              Поднимите свой опыт ухода за ногтями с нашими премиальными услугами. Мы специализируемся на создании красивых, 
-              долговечных дизайнов ногтей, адаптированных под ваш личный стиль.
+              Поднимите свой опыт ухода за ногтями с нашими премиальными
+              услугами. Мы специализируемся на создании красивых, долговечных
+              дизайнов ногтей, адаптированных под ваш личный стиль.
             </p>
             <div className="flex space-x-4">
-              <SocialLink href="https://instagram.com" icon={<Instagram size={20} />} label="Instagram" />
-              <SocialLink href="https://facebook.com" icon={<Facebook size={20} />} label="Facebook" />
-              <SocialLink href="https://twitter.com" icon={<Twitter size={20} />} label="Twitter" />
+              <SocialLink
+                href="https://instagram.com"
+                icon={<Instagram size={20} />}
+                label="Instagram"
+              />
+              <SocialLink
+                href="https://facebook.com"
+                icon={<Facebook size={20} />}
+                label="Facebook"
+              />
+              <SocialLink
+                href="https://twitter.com"
+                icon={<Twitter size={20} />}
+                label="Twitter"
+              />
             </div>
           </div>
 
@@ -55,23 +77,39 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-medium mb-4">Контактная информация</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
-                <MapPin size={20} className="text-pink-400 mr-3 mt-1 flex-shrink-0" />
-                <span className="text-gray-400">ул. Красоты, 123<br />Москва, 123456</span>
+                <MapPin
+                  size={20}
+                  className="text-pink-400 mr-3 mt-1 flex-shrink-0"
+                />
+                <span className="text-gray-400">
+                  ул. Красоты, 123
+                  <br />
+                  Москва, 123456
+                </span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="text-pink-400 mr-3 flex-shrink-0" />
-                <a href="tel:+74951234567" className="text-gray-400 hover:text-pink-400 transition-colors">
+                <a
+                  href="tel:+74951234567"
+                  className="text-gray-400 hover:text-pink-400 transition-colors"
+                >
                   +7 (495) 123-45-67
                 </a>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="text-pink-400 mr-3 flex-shrink-0" />
-                <a href="mailto:info@nailartistry.ru" className="text-gray-400 hover:text-pink-400 transition-colors">
+                <a
+                  href="mailto:info@nailartistry.ru"
+                  className="text-gray-400 hover:text-pink-400 transition-colors"
+                >
                   info@nailartistry.ru
                 </a>
               </li>
               <li className="flex items-start">
-                <Clock size={20} className="text-pink-400 mr-3 mt-1 flex-shrink-0" />
+                <Clock
+                  size={20}
+                  className="text-pink-400 mr-3 mt-1 flex-shrink-0"
+                />
                 <div className="text-gray-400">
                   <p>Пн-Пт: 9:00 - 20:00</p>
                   <p>Сб: 10:00 - 18:00</p>
@@ -87,8 +125,20 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
           <p>© {new Date().getFullYear()} NailArtistry. Все права защищены.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link to="/privacy-policy" className="hover:text-pink-400 transition-colors">Политика конфиденциальности</Link>
-            <Link to="/terms" className="hover:text-pink-400 transition-colors">Условия использования</Link>
+            <Link
+              to="/privacy-policy"
+              className="hover:text-pink-400 transition-colors"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Политика конфиденциальности
+            </Link>
+            <Link
+              to="/terms"
+              className="hover:text-pink-400 transition-colors"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Условия использования
+            </Link>
           </div>
         </div>
       </div>
@@ -121,7 +171,11 @@ interface FooterLinkProps {
 
 const FooterLink: React.FC<FooterLinkProps> = ({ to, label }) => (
   <li>
-    <Link to={to} className="text-gray-400 hover:text-pink-400 transition-colors">
+    <Link
+      to={to}
+      className="text-gray-400 hover:text-pink-400 transition-colors"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    >
       {label}
     </Link>
   </li>

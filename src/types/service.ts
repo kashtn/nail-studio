@@ -6,4 +6,5 @@ export interface Service {
   duration: number;
   image_url: string | null;
   created_at: string;
+  category: string;
 }

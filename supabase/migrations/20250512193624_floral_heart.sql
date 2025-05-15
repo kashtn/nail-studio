@@ -9,6 +9,7 @@
       - `price` (numeric, required)
       - `duration` (integer, required) - in minutes
       - `image_url` (text, optional)
+      - `category` (text, not null)
       - `created_at` (timestamp with time zone, defaults to now())
     
     - `appointments` - Stores client bookings
@@ -37,6 +38,7 @@ CREATE TABLE IF NOT EXISTS services (
   price numeric NOT NULL,
   duration integer NOT NULL,
   image_url text,
+  category text NOT NULL,
   created_at timestamptz DEFAULT now()
 );
 
@@ -91,11 +93,11 @@ CREATE POLICY "Anon users can insert appointments"
   WITH CHECK (client_id IS NULL);
 
 -- Sample data for services
-INSERT INTO services (name, description, price, duration, image_url)
+INSERT INTO services (name, description, price, duration, image_url, category)
 VALUES
-  ('Classic Manicure', 'A traditional manicure with nail shaping, cuticle care, hand massage, and polish of your choice.', 25, 30, 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-  ('Gel Manicure', 'Long-lasting gel polish application that protects your natural nails while providing gorgeous, chip-free color for weeks.', 40, 45, 'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-  ('Luxury Pedicure', 'Indulge in our luxury pedicure with exfoliation, callus removal, extended massage, and perfect polish.', 55, 60, 'https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-  ('Gel Extensions', 'Stunning gel extensions that provide strength, length and the perfect canvas for nail art.', 70, 90, 'https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-  ('Custom Nail Art', 'Express your personal style with custom hand-painted designs, glitter, gems, or 3D elements.', 20, 30, 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-  ('Paraffin Treatment', 'Soothe and moisturize dry hands with a warm paraffin wax treatment that leaves skin soft and rejuvenated.', 25, 20, 'https://images.pexels.com/photos/3997304/pexels-photo-3997304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  ('Классический маникюр', 'Традиционный маникюр с приданием формы ногтям, уходом за кутикулой, массажем рук и покрытием по вашему выбору.', 25, 30, 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'Маникюр'),
+  ('Гель-лак', 'Долговременное покрытие гель-лаком, которое защищает ваши натуральные ногти и обеспечивает великолепный цвет без сколов на несколько недель.', 40, 45, 'https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'Маникюр'),
+  ('Люкс педикюр', 'Побалуйте себя люкс педикюром с пилингом, удалением мозолей, расширенным массажем и идеальным покрытием.', 55, 60, 'https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'Педикюр'),
+  ('Наращивание гелем', 'Потрясающее наращивание гелем, которое обеспечивает прочность, длину и идеальную основу для дизайна ногтей.', 70, 90, 'https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'Наращивание'),
+  ('Индивидуальный дизайн', 'Выразите свой личный стиль с помощью индивидуальных ручных рисунков, блесток, страз или 3D-элементов.', 20, 30, 'https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'Дизайн'),
+  ('Парафинотерапия', 'Успокаивающая и увлажняющая процедура для сухих рук с использованием теплого парафина, которая делает кожу мягкой и омоложенной.', 25, 20, 'https://images.pexels.com/photos/3997304/pexels-photo-3997304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'Спа');

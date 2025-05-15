@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { Appointment, AppointmentStatus } from '../types/appointment';
+import { Appointment } from '../types/appointment';
 import { useAuth } from '../context/AuthContext';
 import { format } from 'date-fns';
-import { Calendar, Clock, DollarSign, X, Check, AlertTriangle } from 'lucide-react';
+import { Calendar, Clock, X, Check, AlertTriangle } from 'lucide-react';
 
 const AppointmentPage: React.FC = () => {
   const { user } = useAuth();
@@ -244,9 +244,9 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
             <Clock size={16} className="mr-2" />
             <span>{format(appointmentDate, 'h:mm a')}</span>
           </div>
-          <div className="flex items-center text-gray-600">
-            <DollarSign size={16} className="mr-2" />
-            <span>${appointment.service?.price}</span>
+          <div className="flex justify-between text-sm">
+            <span>Стоимость:</span>
+            <span>₽{appointment.service?.price}</span>
           </div>
         </div>
         

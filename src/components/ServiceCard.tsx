@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, DollarSign } from 'lucide-react';
+import { Clock, RussianRuble } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Service } from '../types/service';
 
@@ -38,8 +38,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, featured = false }) 
             <span>{duration} мин</span>
           </div>
           <div className="flex items-center text-gray-800 font-medium">
-            <DollarSign size={16} className="mr-1" />
-            <span>${price}</span>
+            <RussianRuble size={16} className="mr-1" />
+            <span>{price}</span>
           </div>
         </div>
       </div>
@@ -47,6 +47,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, featured = false }) 
       <div className="px-6 pb-6">
         <Link
           to={`/booking?service=${id}`}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="block w-full py-2 bg-pink-500 hover:bg-pink-600 text-white text-center rounded-md font-medium transition-colors"
         >
           Записаться

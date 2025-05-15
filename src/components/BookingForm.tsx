@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import DatePicker from './DatePicker';
 import TimeSlotPicker, { TimeSlot } from './TimeSlotPicker';
-import { format, parse, addMinutes } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 interface BookingFormProps {
   services: Service[];
@@ -151,7 +151,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ services, initialServiceId })
             >
               <h4 className="font-medium text-gray-800">{service.name}</h4>
               <div className="flex justify-between mt-2 text-sm">
-                <span>${service.price}</span>
+                <span>₽{service.price}</span>
                 <span>{service.duration} min</span>
               </div>
             </div>

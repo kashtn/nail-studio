@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center z-0" 
         style={{ 
-          backgroundImage: "url('https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')" 
+          backgroundImage: "url('https://assets.afcdn.com/story/20200507/2054894_w5472h4104c1cx2736cy1824cxt0cyt0cxb5472cyb3648.jpg')" 
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -28,6 +28,7 @@ const Hero: React.FC = () => {
             <Link 
               to="/booking" 
               className="px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-md font-medium transition-colors duration-300 transform hover:scale-105"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Записаться
             </Link>
