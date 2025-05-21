@@ -11,7 +11,7 @@ export const featureService: Service[] = [
     image_url:
       "https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Маникюр"
+    category: "Маникюр",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const featureService: Service[] = [
     image_url:
       "https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Маникюр"
+    category: "Маникюр",
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const featureService: Service[] = [
     image_url:
       "https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Педикюр"
+    category: "Педикюр",
   },
 ];
 
@@ -50,7 +50,7 @@ const services: Service[] = [
     image_url:
       "https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Маникюр"
+    category: "Маникюр",
   },
   {
     id: 2,
@@ -62,7 +62,7 @@ const services: Service[] = [
     image_url:
       "https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Маникюр"
+    category: "Маникюр",
   },
   {
     id: 3,
@@ -74,7 +74,7 @@ const services: Service[] = [
     image_url:
       "https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Педикюр"
+    category: "Педикюр",
   },
   {
     id: 4,
@@ -86,7 +86,7 @@ const services: Service[] = [
     image_url:
       "https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Наращивание"
+    category: "Наращивание",
   },
   {
     id: 5,
@@ -95,10 +95,9 @@ const services: Service[] = [
       "Выразите свой личный стиль с помощью индивидуальных ручных рисунков, блесток, страз или 3D-элементов.",
     price: 20,
     duration: 30,
-    image_url:
-      "https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image_url: "/uniq_design.jpg",
     created_at: new Date().toISOString(),
-    category: "Дизайн"
+    category: "Дизайн",
   },
   {
     id: 6,
@@ -110,7 +109,7 @@ const services: Service[] = [
     image_url:
       "https://images.pexels.com/photos/3997304/pexels-photo-3997304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     created_at: new Date().toISOString(),
-    category: "Спа"
+    category: "Спа",
   },
 ];
 

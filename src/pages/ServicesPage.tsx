@@ -23,7 +23,7 @@ const ServicesPage: React.FC = () => {
         if (error) throw error;
         
         if (data) {
-          setServices(data);
+          setServices(data.sort((a, b) => a.id - b.id));
         }
       } catch (error) {
         console.error('Error fetching services:', error);

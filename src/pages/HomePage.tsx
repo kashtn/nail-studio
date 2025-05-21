@@ -51,9 +51,8 @@ const HomePage: React.FC = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Елена Томпсон",
-      image:
-        "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      name: "Елена Алфёрова",
+      image: "/elena.jpg",
       rating: 5,
       date: "15 мая 2024",
       comment:
@@ -61,9 +60,8 @@ const HomePage: React.FC = () => {
     },
     {
       id: 2,
-      name: "Михаил Чен",
-      image:
-        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      name: "София Чен",
+      image: "/chen.jpg",
       rating: 5,
       date: "28 апреля 2024",
       comment:
@@ -71,9 +69,8 @@ const HomePage: React.FC = () => {
     },
     {
       id: 3,
-      name: "София Родригес",
-      image:
-        "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      name: "Мишель Родригес",
+      image: "/michelle.jpg",
       rating: 4,
       date: "3 июня 2024",
       comment:
