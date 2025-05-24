@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -13,6 +12,7 @@ import AppointmentPage from './pages/AppointmentPage';
 import ProfilePage from './pages/ProfilePage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsPage from './pages/TermsPage';
+import PasswordRecoveryPage from './pages/PasswordRecoveryPage';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
               <Route path="/appointments" element={<AppointmentPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

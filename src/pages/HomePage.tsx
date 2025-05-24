@@ -27,12 +27,13 @@ const HomePage: React.FC = () => {
         const { data, error } = await supabase
           .from("services")
           .select("*")
-          .limit(3);
+          .limit(3)
+          .lt("id", 4);
 
         if (error) throw error;
 
         if (data) {
-          setFeaturedServices(data);
+          setFeaturedServices(data.sort((a, b) => a.id - b.id));
         }
       } catch (error) {
         console.error("Error fetching services:", error);
@@ -212,7 +213,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="w-full md:w-1/3">
               <img
-                src="https://images.pexels.com/photos/3997304/pexels-photo-3997304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                src="/ready.jpg"
                 alt="Nail art close-up"
                 className="rounded-lg shadow-md w-full h-auto"
               />
