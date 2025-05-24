@@ -6,7 +6,7 @@ import { Phone as PhoneIcon, Lock, Eye, EyeOff } from "lucide-react";
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { signIn, signUp } = useAuth();
-
+  
   const [isLogin, setIsLogin] = useState(true);
   const [phone, setPhone] = useState("+7");
   const [password, setPassword] = useState("");
@@ -52,12 +52,12 @@ const LoginPage: React.FC = () => {
     const formatted = formatPhoneNumber(e.target.value);
     setPhone(formatted);
   };
-
+  
   const toggleView = () => {
     setIsLogin(!isLogin);
     setErrorMessage("");
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
@@ -70,14 +70,14 @@ const LoginPage: React.FC = () => {
     }
 
     setIsLoading(true);
-
+    
     try {
       if (isLogin) {
         // Login
         const { error } = await signIn(phone, password);
-
+        
         if (error) throw error;
-
+        
         // Redirect to homepage on success
         navigate("/");
       } else {
@@ -86,11 +86,11 @@ const LoginPage: React.FC = () => {
           setErrorMessage("Пароли не совпадают");
           return;
         }
-
+        
         const { error } = await signUp(phone, password);
-
+        
         if (error) throw error;
-
+        
         // Redirect to homepage on success
         navigate("/");
       }
@@ -103,7 +103,7 @@ const LoginPage: React.FC = () => {
       setIsLoading(false);
     }
   };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20 pb-12 px-4">
       <div className="bg-white rounded-lg shadow-lg p-8 sm:p-12 w-full max-w-md">
@@ -112,18 +112,18 @@ const LoginPage: React.FC = () => {
             {isLogin ? "Добро пожаловать" : "Создать аккаунт"}
           </h1>
           <p className="text-gray-600 mt-2">
-            {isLogin
+            {isLogin 
               ? "Войдите, чтобы получить доступ к своему аккаунту и записям"
               : "Присоединяйтесь к нам для удобной записи и эксклюзивных предложений"}
           </p>
         </div>
-
+        
         {errorMessage && (
           <div className="mb-6 p-4 bg-red-50 text-red-800 rounded-md">
             {errorMessage}
           </div>
         )}
-
+        
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Phone Field */}
           <div>
@@ -149,7 +149,7 @@ const LoginPage: React.FC = () => {
               />
             </div>
           </div>
-
+          
           {/* Password Field */}
           <div>
             <label
@@ -185,7 +185,7 @@ const LoginPage: React.FC = () => {
               </button>
             </div>
           </div>
-
+          
           {/* Confirm Password Field (Sign Up only) */}
           {!isLogin && (
             <div>
@@ -212,7 +212,7 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
           )}
-
+          
           {/* Forgot Password Link (Login only) */}
           {isLogin && (
             <div className="flex justify-end">
@@ -225,7 +225,7 @@ const LoginPage: React.FC = () => {
               </Link>
             </div>
           )}
-
+          
           {/* Submit Button */}
           <button
             type="submit"
@@ -243,7 +243,7 @@ const LoginPage: React.FC = () => {
               "Создать аккаунт"
             )}
           </button>
-
+          
           {/* Toggle between Login and Sign Up */}
           <div className="text-center mt-4">
             <p className="text-gray-600">
@@ -258,7 +258,7 @@ const LoginPage: React.FC = () => {
             </p>
           </div>
         </form>
-
+        
         {/* Back to Home */}
         <div className="text-center mt-8">
           <Link

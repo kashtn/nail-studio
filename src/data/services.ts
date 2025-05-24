@@ -30,7 +30,7 @@ export const featureService: Service[] = [
     name: "Люкс педикюр",
     description:
       "Побалуйте себя люкс педикюром с пилингом, удалением мозолей, расширенным массажем и идеальным покрытием.",
-    price: 55,
+    price: 5500,
     duration: 60,
     image_url:
       "https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -45,7 +45,7 @@ const services: Service[] = [
     name: "Классический маникюр",
     description:
       "Традиционный маникюр с приданием формы ногтям, уходом за кутикулой, массажем рук и покрытием по вашему выбору.",
-    price: 25,
+    price: 2500,
     duration: 30,
     image_url:
       "https://images.pexels.com/photos/704815/pexels-photo-704815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -57,7 +57,7 @@ const services: Service[] = [
     name: "Гель-лак",
     description:
       "Долговременное покрытие гель-лаком, которое защищает ваши натуральные ногти и обеспечивает великолепный цвет без сколов на несколько недель.",
-    price: 40,
+    price: 4000,
     duration: 45,
     image_url:
       "https://images.pexels.com/photos/939836/pexels-photo-939836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -69,7 +69,7 @@ const services: Service[] = [
     name: "Люкс педикюр",
     description:
       "Побалуйте себя люкс педикюром с пилингом, удалением мозолей, расширенным массажем и идеальным покрытием.",
-    price: 55,
+    price: 5500,
     duration: 60,
     image_url:
       "https://images.pexels.com/photos/3997385/pexels-photo-3997385.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -81,7 +81,7 @@ const services: Service[] = [
     name: "Наращивание гелем",
     description:
       "Потрясающее наращивание гелем, которое обеспечивает прочность, длину и идеальную основу для дизайна ногтей.",
-    price: 70,
+    price: 7000,
     duration: 90,
     image_url:
       "https://images.pexels.com/photos/3997391/pexels-photo-3997391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -93,7 +93,7 @@ const services: Service[] = [
     name: "Индивидуальный дизайн",
     description:
       "Выразите свой личный стиль с помощью индивидуальных ручных рисунков, блесток, страз или 3D-элементов.",
-    price: 20,
+    price: 2000,
     duration: 30,
     image_url: "/uniq_design.jpg",
     created_at: new Date().toISOString(),
@@ -104,7 +104,7 @@ const services: Service[] = [
     name: "Парафинотерапия",
     description:
       "Успокаивающая и увлажняющая процедура для сухих рук с использованием теплого парафина, которая делает кожу мягкой и омоложенной.",
-    price: 25,
+    price: 2500,
     duration: 20,
     image_url:
       "https://images.pexels.com/photos/3997304/pexels-photo-3997304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",

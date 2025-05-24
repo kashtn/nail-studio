@@ -28,7 +28,7 @@ const ContactPage: React.FC = () => {
                   <p className="text-gray-600">
                     г. Москва, ул. Примерная, д. 123
                   </p>
-                </div>
+              </div>
               </div>
               <div className="flex items-start">
                 <Phone className="w-6 h-6 text-pink-500 mt-1 flex-shrink-0" />
@@ -67,7 +67,7 @@ const ContactPage: React.FC = () => {
                     </a>
                   </p>
                 </div>
-              </div>
+                  </div>
             </div>
           </div>
 
@@ -106,8 +106,8 @@ const ContactPage: React.FC = () => {
               referrerPolicy="no-referrer-when-downgrade"
               className="rounded-lg"
             ></iframe>
-          </div>
-        </div>
+      </div>
+    </div>
       </div>
     </div>
   );

@@ -101,7 +101,7 @@ const PrivacyPolicyPage: React.FC = () => {
               </h2>
               <p className="text-gray-600">
                 По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться к нам по 
-                электронной почте: <a href="mailto:privacy@nailstudio.ru" className="text-pink-600 hover:text-pink-800">privacy@nailstudio.ru</a>
+                электронной почте: <a href="mailto:privacy@nailartistry.ru" className="text-pink-600 hover:text-pink-800">privacy@nailstudio.ru</a>
               </p>
             </section>
           </div>
