@@ -12,6 +12,8 @@ const AppointmentPage: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [appointmentToCancel, setAppointmentToCancel] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -95,15 +97,17 @@ const AppointmentPage: React.FC = () => {
   }, [user]);
 
   const cancelAppointment = async (id: number) => {
-    if (!confirm("Are you sure you want to cancel this appointment?")) {
-      return;
-    }
+    setAppointmentToCancel(id);
+    setShowModal(true);
+  };
 
+  const handleConfirmCancel = async () => {
+    if (appointmentToCancel === null) return;
     try {
       const { error } = await supabase
         .from("appointments")
         .update({ status: "cancelled" })
-        .eq("id", id)
+        .eq("id", appointmentToCancel)
         .eq("client_id", user?.id || "");
 
       if (error) throw error;
@@ -111,7 +115,7 @@ const AppointmentPage: React.FC = () => {
       // Update local state
       setAppointments(
         appointments.map((appointment) =>
-          appointment.id === id
+          appointment.id === appointmentToCancel
             ? { ...appointment, status: "cancelled" }
             : appointment
         )
@@ -119,7 +123,15 @@ const AppointmentPage: React.FC = () => {
     } catch (error) {
       console.error("Error cancelling appointment:", error);
       alert("Failed to cancel appointment. Please try again.");
+    } finally {
+      setShowModal(false);
+      setAppointmentToCancel(null);
     }
+  };
+
+  const handleCancelModal = () => {
+    setShowModal(false);
+    setAppointmentToCancel(null);
   };
 
   const getStatusBadge = (status: string) => {
@@ -226,6 +238,30 @@ const AppointmentPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Modal for cancellation confirmation */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h3 className="text-lg font-medium text-gray-800 mb-4">Подтверждение отмены</h3>
+            <p className="text-gray-600 mb-6">Вы уверены, что хотите отменить эту запись?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={handleCancelModal}
+                className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors"
+              >
+                Нет, оставить
+              </button>
+              <button
+                onClick={handleConfirmCancel}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+              >
+                Отменить
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

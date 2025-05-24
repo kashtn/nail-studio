@@ -214,7 +214,7 @@ const LoginPage: React.FC = () => {
           )}
           
           {/* Forgot Password Link (Login only) */}
-          {isLogin && (
+          {/* {isLogin && (
             <div className="flex justify-end">
               <Link
                 to="/password-recovery"
@@ -224,7 +224,7 @@ const LoginPage: React.FC = () => {
                 Забыли пароль?
               </Link>
             </div>
-          )}
+          )} */}
           
           {/* Submit Button */}
           <button

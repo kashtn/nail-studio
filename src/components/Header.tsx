@@ -33,8 +33,15 @@ const Header: React.FC = () => {
   }, []);
 
   const handleSignOut = async () => {
-    await signOut();
-    setIsAccountMenuOpen(false);
+    try {
+      await signOut();
+
+      setIsAccountMenuOpen(false);
+      window.location.href = "/";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      console.log("Не удалось выйти", error);
+    }
   };
 
   const toggleMenu = () => setIsOpen(!isOpen);
