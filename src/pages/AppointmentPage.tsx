@@ -13,7 +13,9 @@ const AppointmentPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [appointmentToCancel, setAppointmentToCancel] = useState<number | null>(null);
+  const [appointmentToCancel, setAppointmentToCancel] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -243,8 +245,12 @@ const AppointmentPage: React.FC = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h3 className="text-lg font-medium text-gray-800 mb-4">Подтверждение отмены</h3>
-            <p className="text-gray-600 mb-6">Вы уверены, что хотите отменить эту запись?</p>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">
+              Подтверждение отмены
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Вы уверены, что хотите отменить эту запись?
+            </p>
             <div className="flex justify-end space-x-4">
               <button
                 onClick={handleCancelModal}
@@ -280,7 +286,6 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   showCancelButton,
 }) => {
   const appointmentDate = new Date(appointment.appointment_date);
-console.log(appointmentDate);
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">

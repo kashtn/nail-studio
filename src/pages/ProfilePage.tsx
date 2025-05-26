@@ -1,27 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabase';
-import { User, Mail, Phone, Save } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { supabase } from "../lib/supabase";
+import { User, Phone, Save } from "lucide-react";
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  
+
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    preferences: ''
+    fullName: "",
+    email: "",
+    phone: "",
+    preferences: "",
   });
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
@@ -29,26 +32,26 @@ const ProfilePage: React.FC = () => {
       setIsLoading(true);
       try {
         const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
           .single();
 
         if (error) throw error;
 
         if (data) {
           setFormData({
-            fullName: data.full_name || '',
-            email: user.email || '',
-            phone: data.phone || '',
-            preferences: data.preferences || ''
+            fullName: data.full_name || "",
+            email: user.email || "",
+            phone: data.phone || "",
+            preferences: data.preferences || "",
           });
         }
       } catch (error) {
-        console.error('Ошибка при загрузке профиля:', error);
-        setFormData(prev => ({
+        console.error("Ошибка при загрузке профиля:", error);
+        setFormData((prev) => ({
           ...prev,
-          email: user?.email || ''
+          email: user?.email || "",
         }));
       } finally {
         setIsLoading(false);
@@ -58,9 +61,11 @@ const ProfilePage: React.FC = () => {
     fetchProfile();
   }, [user, navigate]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,27 +76,25 @@ const ProfilePage: React.FC = () => {
     setMessage(null);
 
     try {
-      const { error } = await supabase
-        .from('profiles')
-        .upsert({
-          id: user.id,
-          full_name: formData.fullName,
-          phone: formData.phone,
-          preferences: formData.preferences,
-          updated_at: new Date().toISOString()
-        });
+      const { error } = await supabase.from("profiles").upsert({
+        id: user.id,
+        full_name: formData.fullName,
+        phone: formData.email.split("@")[0],
+        preferences: formData.preferences,
+        updated_at: new Date().toISOString(),
+      });
 
       if (error) throw error;
 
       setMessage({
-        type: 'success',
-        text: 'Профиль успешно обновлен!'
+        type: "success",
+        text: "Профиль успешно обновлен!",
       });
     } catch (error) {
-      console.error('Ошибка при обновлении профиля:', error);
+      console.error("Ошибка при обновлении профиля:", error);
       setMessage({
-        type: 'error',
-        text: 'Не удалось обновить профиль. Пожалуйста, попробуйте снова.'
+        type: "error",
+        text: "Не удалось обновить профиль. Пожалуйста, попробуйте снова.",
       });
     } finally {
       setIsSaving(false);
@@ -117,13 +120,18 @@ const ProfilePage: React.FC = () => {
     <div className="min-h-screen pt-20">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-serif font-medium text-gray-800 mb-8">Мой профиль</h1>
-          
+          <h1 className="text-3xl font-serif font-medium text-gray-800 mb-8">
+            Мой профиль
+          </h1>
+
           <div className="bg-white rounded-lg shadow-md p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Полное имя */}
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="fullName"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Полное имя
                 </label>
                 <div className="relative">
@@ -142,32 +150,12 @@ const ProfilePage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email адрес
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail size={18} className="text-gray-400" />
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    disabled
-                    className="pl-10 w-full p-3 border border-gray-300 rounded-md bg-gray-50 text-gray-500"
-                  />
-                </div>
-                <p className="mt-1 text-sm text-gray-500">
-                  Email нельзя изменить
-                </p>
-              </div>
-
               {/* Телефон */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Номер телефона
                 </label>
                 <div className="relative">
@@ -178,8 +166,9 @@ const ProfilePage: React.FC = () => {
                     type="tel"
                     id="phone"
                     name="phone"
-                    value={formData.phone}
+                    value={formData.email.split("@")[0]}
                     onChange={handleChange}
+                    disabled
                     className="pl-10 w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-300 focus:border-transparent"
                     placeholder="Ваш номер телефона"
                   />
@@ -188,7 +177,10 @@ const ProfilePage: React.FC = () => {
 
               {/* Предпочтения */}
               <div>
-                <label htmlFor="preferences" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="preferences"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Предпочтения по услугам
                 </label>
                 <textarea
@@ -204,9 +196,13 @@ const ProfilePage: React.FC = () => {
 
               {/* Сообщения */}
               {message && (
-                <div className={`p-4 rounded-md ${
-                  message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-                }`}>
+                <div
+                  className={`p-4 rounded-md ${
+                    message.type === "success"
+                      ? "bg-green-50 text-green-800"
+                      : "bg-red-50 text-red-800"
+                  }`}
+                >
                   {message.text}
                 </div>
               )}

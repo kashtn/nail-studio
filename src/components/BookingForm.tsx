@@ -38,6 +38,34 @@ const BookingForm: React.FC<BookingFormProps> = ({
   // const [successMessage, setSuccessMessage] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
 
+  // Fetch user profile data when reaching step 4
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (currentStep === 4 && user) {
+        try {
+          const { data, error } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", user.id)
+            .single();
+
+          if (error) throw error;
+
+          if (data) {
+            setClientName(data.full_name || "");
+            setClientPhone(data.phone || "");
+            setClientEmail(user.email || "");
+            setNotes(data.preferences || "");
+          }
+        } catch (error) {
+          console.error("Ошибка при загрузке профиля:", error);
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [currentStep, user]);
+
   // Set initial service if provided
   useEffect(() => {
     if (initialServiceId && services.length > 0) {
@@ -91,7 +119,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
         let restoredStep = 1;
         let restoredService: Service | null = null;
         if (parsed.selectedServiceId && services.length > 0) {
-          const service = services.find((s) => s.id === parsed.selectedServiceId);
+          const service = services.find(
+            (s) => s.id === parsed.selectedServiceId
+          );
           if (service) {
             setSelectedService(service);
             restoredService = service;
@@ -131,7 +161,16 @@ const BookingForm: React.FC<BookingFormProps> = ({
       currentStep,
     };
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-  }, [selectedService, selectedDate, selectedTimeSlot, clientName, clientEmail, clientPhone, notes, currentStep]);
+  }, [
+    selectedService,
+    selectedDate,
+    selectedTimeSlot,
+    clientName,
+    clientEmail,
+    clientPhone,
+    notes,
+    currentStep,
+  ]);
 
   const handleServiceSelect = (service: Service) => {
     setSelectedService(service);
@@ -233,7 +272,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
             >
               {step}
             </div>
-            <div className="ml-2 text-sm">
+            <div className="ml-2 text-sm hidden sm:block">
               {step === 1 && "Услуга"}
               {step === 2 && "Дата"}
               {step === 3 && "Время"}
@@ -241,13 +280,23 @@ const BookingForm: React.FC<BookingFormProps> = ({
             </div>
             {step < 4 && (
               <div
-                className={`w-16 h-0.5 mx-2 ${
+                className={`w-8 sm:w-16 h-0.5 mx-2 ${
                   step < currentStep ? "bg-pink-500" : "bg-gray-300"
                 }`}
               />
             )}
           </div>
         ))}
+      </div>
+
+      {/* Mobile Step Indicator */}
+      <div className="sm:hidden text-center mb-6">
+        <span className="text-sm font-medium text-gray-700">
+          {currentStep === 1 && "Шаг 1: Выбор услуги"}
+          {currentStep === 2 && "Шаг 2: Выбор даты"}
+          {currentStep === 3 && "Шаг 3: Выбор времени"}
+          {currentStep === 4 && "Шаг 4: Ваши данные"}
+        </span>
       </div>
 
       {/* Service Selection */}
