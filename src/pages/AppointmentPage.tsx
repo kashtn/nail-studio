@@ -114,6 +114,8 @@ const AppointmentPage: React.FC = () => {
 
       if (error) throw error;
 
+      fetch("http://localhost:3001/api/sync/appointments", { method: "POST" });
+
       // Update local state
       setAppointments(
         appointments.map((appointment) =>
@@ -214,6 +216,12 @@ const AppointmentPage: React.FC = () => {
               ) : (
                 <div className="bg-white p-6 rounded-lg shadow-md text-center">
                   <p className="text-gray-600">Нет предстоящих записей.</p>
+                  <a
+                    href="/booking"
+                    className="inline-block px-6 py-2 mt-8 bg-pink-500 hover:bg-pink-600 text-white rounded-md font-medium transition-colors"
+                  >
+                    Записаться
+                  </a>
                 </div>
               )}
             </div>
