@@ -3,10 +3,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Phone as PhoneIcon, Lock, Eye, EyeOff } from "lucide-react";
 
+import { supabase } from "../lib/supabase";
+
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { signIn, signUp } = useAuth();
-  
+
   const [isLogin, setIsLogin] = useState(true);
   const [phone, setPhone] = useState("+7");
   const [password, setPassword] = useState("");
@@ -17,34 +19,34 @@ const LoginPage: React.FC = () => {
 
   const formatPhoneNumber = (value: string) => {
     // Remove all non-digit characters except the + at the start
-    const cleaned = value.replace(/\D/g, '');
-    
+    const cleaned = value.replace(/\D/g, "");
+
     // Ensure it starts with 7
-    let formatted = cleaned.startsWith('7') ? cleaned : '7' + cleaned;
-    
+    let formatted = cleaned.startsWith("7") ? cleaned : "7" + cleaned;
+
     // If there are digits after 7, ensure the first one is 9
     if (formatted.length > 1) {
-      formatted = '7' + '9' + formatted.slice(2);
+      formatted = "7" + "9" + formatted.slice(2);
     }
-    
+
     // Limit to 11 digits (including the 7)
     formatted = formatted.slice(0, 11);
-    
+
     // Format the number
-    let result = '+7';
+    let result = "+7";
     if (formatted.length > 1) {
-      result += ' (' + formatted.slice(1, 4);
+      result += " (" + formatted.slice(1, 4);
       if (formatted.length > 4) {
-        result += ') ' + formatted.slice(4, 7);
+        result += ") " + formatted.slice(4, 7);
         if (formatted.length > 7) {
-          result += '-' + formatted.slice(7, 9);
+          result += "-" + formatted.slice(7, 9);
           if (formatted.length > 9) {
-            result += '-' + formatted.slice(9, 11);
+            result += "-" + formatted.slice(9, 11);
           }
         }
       }
     }
-    
+
     return result;
   };
 
@@ -52,32 +54,32 @@ const LoginPage: React.FC = () => {
     const formatted = formatPhoneNumber(e.target.value);
     setPhone(formatted);
   };
-  
+
   const toggleView = () => {
     setIsLogin(!isLogin);
     setErrorMessage("");
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
-    
+
     // Validate phone number length (should be 11 digits including the 7)
-    const cleanedPhone = phone.replace(/\D/g, '');
+    const cleanedPhone = phone.replace(/\D/g, "");
     if (cleanedPhone.length !== 11) {
-      setErrorMessage('Введите корректный номер телефона');
+      setErrorMessage("Введите корректный номер телефона");
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
       if (isLogin) {
         // Login
         const { error } = await signIn(phone, password);
-        
+
         if (error) throw error;
-        
+
         // Redirect to homepage on success
         navigate("/");
       } else {
@@ -86,11 +88,21 @@ const LoginPage: React.FC = () => {
           setErrorMessage("Пароли не совпадают");
           return;
         }
-        
-        const { error } = await signUp(phone, password);
-        
+
+        const { error, data: userData } = await signUp(phone, password);
+
         if (error) throw error;
-        
+
+        const { error: upsertError } = await supabase.from("profiles").upsert({
+          id: userData?.user?.id,
+          phone: cleanedPhone,
+          updated_at: new Date().toISOString(),
+        });
+
+        if (upsertError) throw error;
+
+        fetch("http://localhost:3001/api/sync/profiles", { method: "POST" });
+
         // Redirect to homepage on success
         navigate("/");
       }
@@ -103,7 +115,7 @@ const LoginPage: React.FC = () => {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20 pb-12 px-4">
       <div className="bg-white rounded-lg shadow-lg p-8 sm:p-12 w-full max-w-md">
@@ -112,18 +124,18 @@ const LoginPage: React.FC = () => {
             {isLogin ? "Добро пожаловать" : "Создать аккаунт"}
           </h1>
           <p className="text-gray-600 mt-2">
-            {isLogin 
+            {isLogin
               ? "Войдите, чтобы получить доступ к своему аккаунту и записям"
               : "Присоединяйтесь к нам для удобной записи и эксклюзивных предложений"}
           </p>
         </div>
-        
+
         {errorMessage && (
           <div className="mb-6 p-4 bg-red-50 text-red-800 rounded-md">
             {errorMessage}
           </div>
         )}
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Phone Field */}
           <div>
@@ -149,7 +161,7 @@ const LoginPage: React.FC = () => {
               />
             </div>
           </div>
-          
+
           {/* Password Field */}
           <div>
             <label
@@ -185,7 +197,7 @@ const LoginPage: React.FC = () => {
               </button>
             </div>
           </div>
-          
+
           {/* Confirm Password Field (Sign Up only) */}
           {!isLogin && (
             <div>
@@ -212,7 +224,7 @@ const LoginPage: React.FC = () => {
               </div>
             </div>
           )}
-          
+
           {/* Forgot Password Link (Login only) */}
           {/* {isLogin && (
             <div className="flex justify-end">
@@ -225,7 +237,7 @@ const LoginPage: React.FC = () => {
               </Link>
             </div>
           )} */}
-          
+
           {/* Submit Button */}
           <button
             type="submit"
@@ -243,7 +255,7 @@ const LoginPage: React.FC = () => {
               "Создать аккаунт"
             )}
           </button>
-          
+
           {/* Toggle between Login and Sign Up */}
           <div className="text-center mt-4">
             <p className="text-gray-600">
@@ -258,7 +270,7 @@ const LoginPage: React.FC = () => {
             </p>
           </div>
         </form>
-        
+
         {/* Back to Home */}
         <div className="text-center mt-8">
           <Link

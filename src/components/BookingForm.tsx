@@ -222,7 +222,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
         .select();
 
       if (error) throw error;
-      //success
+
+      fetch("http://localhost:3001/api/sync/appointments", { method: "POST" });
+
       setIsLoading(false);
       // Clear form
       setSelectedService(null);
