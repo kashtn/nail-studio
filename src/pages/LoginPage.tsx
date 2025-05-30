@@ -101,7 +101,9 @@ const LoginPage: React.FC = () => {
 
         if (upsertError) throw error;
 
-        fetch("http://localhost:3001/api/sync/profiles", { method: "POST" });
+        const endPoint = import.meta.env.VITE_GATEAWAY_URL;
+
+        fetch(endPoint + "/sync/profiles", { method: "POST" });
 
         // Redirect to homepage on success
         navigate("/");

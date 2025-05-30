@@ -86,7 +86,9 @@ const ProfilePage: React.FC = () => {
 
       if (error) throw error;
 
-      fetch("http://localhost:3001/api/sync/profiles", { method: "POST" });
+      const endPoint = import.meta.env.VITE_GATEAWAY_URL;
+
+      fetch(endPoint + "/sync/profiles", { method: "POST" });
 
       setMessage({
         type: "success",
