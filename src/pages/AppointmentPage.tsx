@@ -114,7 +114,9 @@ const AppointmentPage: React.FC = () => {
 
       if (error) throw error;
 
-      fetch("http://localhost:3001/api/sync/appointments", { method: "POST" });
+      const endPoint = import.meta.env.VITE_GATEAWAY_URL;
+
+      fetch(endPoint + "/sync/appointments", { method: "POST" });
 
       // Update local state
       setAppointments(

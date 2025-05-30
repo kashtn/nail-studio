@@ -222,8 +222,9 @@ const BookingForm: React.FC<BookingFormProps> = ({
         .select();
 
       if (error) throw error;
+      const endPoint = import.meta.env.VITE_GATEAWAY_URL;
 
-      fetch("http://localhost:3001/api/sync/appointments", { method: "POST" });
+      fetch(endPoint + "/sync/appointments", { method: "POST" });
 
       setIsLoading(false);
       // Clear form
