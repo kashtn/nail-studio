@@ -1,5 +1,5 @@
-import React from 'react';
-import { MapPin, Phone, Mail, Clock, Instagram } from 'lucide-react';
+import React from "react";
+import { MapPin, Phone, Mail, Clock, Instagram } from "lucide-react";
 
 const ContactPage: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const ContactPage: React.FC = () => {
             Контакты
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Мы всегда рады ответить на ваши вопросы и помочь с выбором услуг. 
+            Мы всегда рады ответить на ваши вопросы и помочь с выбором услуг.
             Свяжитесь с нами любым удобным способом.
           </p>
         </div>
@@ -28,14 +28,17 @@ const ContactPage: React.FC = () => {
                   <p className="text-gray-600">
                     г. Москва, ул. Примерная, д. 123
                   </p>
-              </div>
+                </div>
               </div>
               <div className="flex items-start">
                 <Phone className="w-6 h-6 text-pink-500 mt-1 flex-shrink-0" />
                 <div className="ml-4">
                   <h3 className="font-medium text-gray-800">Телефон</h3>
                   <p className="text-gray-600">
-                    <a href="tel:+74951234567" className="hover:text-pink-500 transition-colors">
+                    <a
+                      href="tel:+74951234567"
+                      className="hover:text-pink-500 transition-colors"
+                    >
                       +7 (495) 123-45-67
                     </a>
                   </p>
@@ -46,7 +49,10 @@ const ContactPage: React.FC = () => {
                 <div className="ml-4">
                   <h3 className="font-medium text-gray-800">Email</h3>
                   <p className="text-gray-600">
-                    <a href="mailto:info@nailartistry.ru" className="hover:text-pink-500 transition-colors">
+                    <a
+                      href="mailto:info@nailartistry.ru"
+                      className="hover:text-pink-500 transition-colors"
+                    >
                       info@nailartistry.ru
                     </a>
                   </p>
@@ -57,9 +63,9 @@ const ContactPage: React.FC = () => {
                 <div className="ml-4">
                   <h3 className="font-medium text-gray-800">Instagram</h3>
                   <p className="text-gray-600">
-                    <a 
-                      href="https://instagram.com/nailartistry" 
-                      target="_blank" 
+                    <a
+                      href="https://instagram.com/nailartistry"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-pink-500 transition-colors"
                     >
@@ -67,7 +73,7 @@ const ContactPage: React.FC = () => {
                     </a>
                   </p>
                 </div>
-                  </div>
+              </div>
             </div>
           </div>
 
@@ -97,17 +103,13 @@ const ContactPage: React.FC = () => {
           </h2>
           <div className="aspect-w-16 aspect-h-9">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2244.7657158915027!2d37.61842331590136!3d55.75581798055754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a50b315e573%3A0xa886bf5a3d9b2e68!2z0JzQvtGB0LrQvtCy0YHQutC40Lkg0JrRgNC10LzQu9GM!5e0!3m2!1sru!2sru!4v1647881234567!5m2!1sru!2sru"
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A08878d9586546375a00f0d4adab5d9e62437a2bd48378cca53fcd038dda99ed3&amp;source=constructor"
               width="100%"
-              height="450"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="rounded-lg"
+              height="400"
+              frameBorder="0"
             ></iframe>
-      </div>
-    </div>
+          </div>
+        </div>
       </div>
     </div>
   );
